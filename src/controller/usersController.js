@@ -31,7 +31,7 @@ exports.createUser = async (req, res) => {
 
     const result = await pool.query('INSERT INTO public.user(nome, senha) VALUES($1, $2) RETURNING *', [nome, senha]);
 
-    res.status(201).send(`User created successfully: ${JSON.stringify(result.rows[0])}`);
+    res.status(201).send([{ result: result.rows[0] }]);
   }catch (error) {
     console.error('Error executing query', error);
     res.status(500).send('Internal Server Error');
