@@ -37,3 +37,20 @@ exports.createUser = async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 };
+
+exports.getUser = async (req, res) => {
+  try {
+    const { nome } = req.body;
+
+    if (!nome) {
+      return res.status(400).send([{ status: false, message: 'Campo de nome vazio' }]);
+    }
+
+    const result = await pool.query('SELECT id FROM public."user" WHERE nome=$1;', [nome]);
+
+    res.status(201).send([result.rows[0].id]);
+  }catch (error) {
+    console.error('Error executing query', error);
+    res.status(500).send('Internal Server Error');
+  }
+};

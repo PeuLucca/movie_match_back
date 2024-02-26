@@ -4,8 +4,10 @@ const movieController = require('../controller/movieController');
 
 // get
 router.get('/all', movieController.allMovies);
+router.get('/firstVoting', movieController.firstVoting);
 
 // post
 router.post('/create', movieController.createMovie);
+router.post('/movieVote', movieController.movieVote);
 
 module.exports = router;
